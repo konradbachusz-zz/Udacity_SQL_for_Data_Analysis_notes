@@ -1,0 +1,20 @@
+--Q3 How many accounts had more total purchases than the account name which has bought the most standard_qty paper throughout their lifetime as a customer? 
+
+WITH ACCOUNTS_TOTAL_PURCHASES AS(
+    SELECT ACCOUNT_ID, SUM(TOTAL) AS TOTAL_PURCHASES
+    FROM ORDERS
+    GROUP BY ACCOUNT_ID),
+
+MOST_STANDARD AS (
+    SELECT ACCOUNT_ID, MAX(standard_qty) AS MAX_STANDARD
+    FROM ORDERS
+    GROUP BY ACCOUNT_ID
+    ORDER BY MAX(standard_qty) DESC
+    LIMIT 1)
+
+
+SELECT * 
+FROM ACCOUNTS_TOTAL_PURCHASES 
+WHERE TOTAL_PURCHASES>(SELECT MAX_STANDARD FROM MOST_STANDARD)
+ORDER BY ACCOUNT_ID
+
