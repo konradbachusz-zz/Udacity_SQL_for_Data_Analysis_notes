@@ -1,4 +1,4 @@
---Provide the name of the sales_rep in each region with the largest amount of total_amt_usd sales.
+--Q1 Provide the name of the sales_rep in each region with the largest amount of total_amt_usd sales.
 
 WITH TOTALS_BY_REP AS (
 SELECT s.name rep_name, r.name region_name, SUM(o.total_amt_usd) total_amt
